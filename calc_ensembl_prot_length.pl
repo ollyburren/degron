@@ -4,10 +4,10 @@ my $pname;
 my %pl;
 while(<IN>){
     chomp;
-    next unless /transcript_biotype:protein_coding/;
     #print "$_\n";
     if(/^>([^ ]+)/){
       $pname = $1;
+      $pname = 'rubbish' unless  /transcript_biotype:protein_coding/;
     }else{
       $pl{$pname}+=length($_);
     }
