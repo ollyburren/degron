@@ -1,12 +1,17 @@
 use strict;
-open(IN,'/home/ob219/rds/hpc-work/transvar.download///ftp.ensembl.org/pub/grch37/current/fasta/homo_sapiens/pep/Homo_sapiens.GRCh37.pep.all.fa')
-my $protein;
-while(<F>){
-    if(/^>.*GN=(\w*)/){
-      my $len=length($protein);
-      print "$len\n$1\t";
-      $protein="";
+open(IN,'/home/ob219/rds/hpc-work/transvar.download/Homo_sapiens.GRCh37.pep.all.fa') || die "Cannot open file\n";
+my $pname;
+my %pl;
+while(<IN>){
+    chomp;
+    #print "$_\n";
+    if(/^>([^ ]+)/){
+      $pname = $1;
     }else{
-      $protein .=$_;
+      $pl{$pname}=length($_);
     }
+}
+
+foreach(keys %pl){
+	print "$_ $pl{$_}\n";
 }
