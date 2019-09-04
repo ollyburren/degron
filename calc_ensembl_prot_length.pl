@@ -4,14 +4,14 @@ my $pname;
 my %pl;
 while(<IN>){
     chomp;
+    next unless /transcript_biotype:protein_coding/;
     #print "$_\n";
     if(/^>([^ ]+)/){
       $pname = $1;
     }else{
-      $pl{$pname}=length($_);
+      $pl{$pname}+=length($_);
     }
 }
-
 foreach(keys %pl){
 	print "$_ $pl{$_}\n";
 }
